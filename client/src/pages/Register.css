@@ -1,0 +1,29 @@
+.register {
+    background-image: url(https://image.shutterstock.com/z/stock-vector-chat-messages-smartphone-sms-on-mobile-phone-screen-man-woman-couple-chatting-messaging-using-1744210046.jpg);
+    height: 90vh;
+    background-position: center;
+    background-size: contain;
+    background-repeat: no-repeat;
+    overflow: hidden;
+}
+.signup-profile-pic {
+    height: 100px;
+    width: 100px;
+    margin: 0 auto;
+    position: relative;
+}
+.profile-pic {
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 1px solid grey;
+}
+.add-image-icon {
+    position: absolute;
+    bottom: 0%;
+    right: 10px;
+    color: cornflowerblue;
+    cursor: pointer;
+    z-index: 99;
+}

@@ -2,8 +2,7 @@ const express = require('express')
 const app = express()
 const cors = require('cors')
 const morgan = require('morgan')
-const { urlencoded } = require('express')
-
+const mongoose = require('mongoose')
 
 
 app.use(cors())
@@ -20,6 +19,15 @@ const io = require('socket.io')(server, {
     }
 })
 
-server.listen(port, () => {
-    console.log(`server is listening on port: ${port}...`);
+mongoose.connect(process.env.MONGO_URI, {
+
+})
+.then((result) => {
+    console.log('connected to the db');
+    server.listen(port, () => {
+        console.log(`app listening on port ${port}`);
+    })
+})
+.catch((error) => {
+    console.log(error);
 })

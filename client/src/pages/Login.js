@@ -1,9 +1,12 @@
     import {React, useState} from 'react'
-    import { Link } from 'react-router-dom'
+    import { Link, useNavigate } from 'react-router-dom'
     import {Form, Button, Col, Row, Container} from 'react-bootstrap'
     import './Login.css'
+    import { useLoginUserMutation } from '../services/appApi'
     
     function Login() {
+    const navigate = useNavigate()
+    const [loginUser, {isLoading, error}] = useLoginUserMutation()
     const [formData, setFormData] = useState({
         email: '',
         password: '',
@@ -17,7 +20,16 @@
     }
     const handleLogin = (e) => {
         e.preventDefault()
-        console.log('handle login working');
+        //login user
+        loginUser({email, password})
+        .then(({data}) => {
+            if (data){
+                console.log(data);
+                //sockets here
+                //navigate to chat
+                navigate('/chat')
+            }
+        })
     }
       return (
           <Container>

@@ -1,11 +1,14 @@
 import React from 'react'
 import {Form, Button, Col, Row, Container} from 'react-bootstrap'
 import './Register.css'
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import maskImg from '../assets/maskImg.jpg'
 import {useState} from 'react'
+import { useRegisterUserMutation } from '../services/appApi'
 
 function Register() {
+const navigate = useNavigate()
+const [registerUser, {isLoading, error}] = useRegisterUserMutation()
 const [formData, setFormData] = useState({
     firstName: '',
     lastName: '',
@@ -64,6 +67,14 @@ const handleRegister = async(e) => {
     } else {
         const url = await uploadImage(image)
         console.log(url);
+        //register the user
+        registerUser({firstName, lastName, email, password, picture: url})
+        .then(({data}) => {
+            if(data) {
+                console.log(data);
+                navigate('/chat')
+            }
+        })
     }
 }
   return (

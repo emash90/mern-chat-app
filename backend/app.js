@@ -1,14 +1,21 @@
 const express = require('express')
 const app = express()
-const cors = require('cors')
 const morgan = require('morgan')
+const cors = require('cors')
 const mongoose = require('mongoose')
+require('dotenv').config()
+const bodyParser = require('body-parser')
 
 
+
+app.use(morgan('dev'))
 app.use(cors())
-app.use(morgan())
 app.use(express.json())
-app.use(express.urlencoded({extended:false}))
+app.use(bodyParser.urlencoded({ extended: false }))
+require('./dbconnection/connection')
+
+app.use('/api/user', require('./routes/userRoutes'))
+
 
 const server = require('http').createServer(app)
 const port = process.env.PORT || 5500
@@ -18,16 +25,6 @@ const io = require('socket.io')(server, {
         methods: ['GET', 'POST']
     }
 })
-
-mongoose.connect(process.env.MONGO_URI, {
-
-})
-.then((result) => {
-    console.log('connected to the db');
-    server.listen(port, () => {
-        console.log(`app listening on port ${port}`);
-    })
-})
-.catch((error) => {
-    console.log(error);
+server.listen(port, () => {
+    console.log(`listening on port ${port}`);
 })

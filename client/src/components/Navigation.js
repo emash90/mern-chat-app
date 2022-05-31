@@ -1,9 +1,11 @@
 import React from 'react'
+import { useSelector } from 'react-redux'
 import {Nav, Navbar, Button, Container, NavDropdown} from 'react-bootstrap'
 import { LinkContainer  } from 'react-router-bootstrap'
 import logo from '../assets/logo.png'
 
 function Navigation() {
+  const user = useSelector((state) => state.user)
   return (
     <Navbar bg="light" expand="lg">
     <Container>
@@ -15,9 +17,12 @@ function Navigation() {
       <Navbar.Toggle aria-controls="basic-navbar-nav" />
       <Navbar.Collapse id="basic-navbar-nav">
         <Nav className="ms-auto">
+        {!user ? (
           <LinkContainer to='/login'>
             <Nav.Link>Login</Nav.Link>
           </LinkContainer>
+          ) : (
+            <>
           <LinkContainer to='/chat'>
             <Nav.Link>Chat</Nav.Link>
           </LinkContainer>
@@ -28,6 +33,8 @@ function Navigation() {
             <NavDropdown.Divider />
             <NavDropdown.Item href="#action/3.4">Separated link</NavDropdown.Item>
           </NavDropdown>
+          </>
+          )}
         </Nav>
       </Navbar.Collapse>
     </Container>

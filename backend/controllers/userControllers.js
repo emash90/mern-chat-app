@@ -5,7 +5,7 @@ const User = require('../models/userModel')
 
 const registerUser = async(req, res) => {
     try {
-        const { firstName, lastName, email, password } = req.body
+        const { firstName, lastName, email, password, picture } = req.body
         console.log(req.body);
         //check if user with same email exits
         const userExists = await User.findOne({email})
@@ -17,14 +17,11 @@ const registerUser = async(req, res) => {
             firstName,
             lastName,
             email,
+            picture,
             password
         })
         if(user) {
-            res.status(201).json({
-                _id: user.id,
-                name: user.firstName,
-                email: user.email,
-            })
+            res.status(201).json(user)
         } else{
         res.status(400)
         throw new Error('Invalid user data')

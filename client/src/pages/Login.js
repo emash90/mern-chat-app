@@ -1,10 +1,12 @@
-    import {React, useState} from 'react'
+    import {React, useState, useContext} from 'react'
     import { Link, useNavigate } from 'react-router-dom'
     import {Form, Button, Col, Row, Container} from 'react-bootstrap'
     import './Login.css'
-    import { useLoginUserMutation } from '../services/appApi'
+    import {useLoginUserMutation} from '../services/appApi'
+    import {AppContext} from '../context/appContext'
     
     function Login() {
+    const { socket } = useContext(AppContext)
     const navigate = useNavigate()
     const [loginUser, {isLoading, error}] = useLoginUserMutation()
     const [formData, setFormData] = useState({
@@ -26,6 +28,7 @@
             if (data){
                 console.log(data);
                 //sockets here
+                socket.emit('new-user')
                 //navigate to chat
                 navigate('/chat')
             }

@@ -1,10 +1,10 @@
 import React from 'react'
 import {Form, Button, Col, Row, Container} from 'react-bootstrap'
 import './Register.css'
+import { useRegisterUserMutation } from '../services/appApi'
 import { Link, useNavigate } from 'react-router-dom'
 import maskImg from '../assets/maskImg.jpg'
 import {useState} from 'react'
-import { useRegisterUserMutation } from '../services/appApi'
 
 function Register() {
 const navigate = useNavigate()
@@ -88,7 +88,7 @@ const handleRegister = async(e) => {
                     <label htmlFor="image-upload" className='image-upload-label'>
                         <i className='fas fa-plus-circle add-image-icon'></i>
                     </label>
-                    <input hidden type="file" id='image-upload' accept='image.jpeg image/png' onChange={validateImg} />
+                    <input hidden type="file" id='image-upload' accept='image.jpeg image/png' onChange={validateImg} name='picture'/>
                   </div>
                   <Form.Group className="mb-3" controlId="formBasicEmail">
                       <Form.Label>First Name</Form.Label>
